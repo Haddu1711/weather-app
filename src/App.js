@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import "./App.css";
+import SearchCountry from "./components/SearchCountry";
+import cold from "./pics/cold2.jpg";
+import { urls } from "./services/urls";
+import axios from "axios";
+import States from './services/states';
+import Loader from "./components/Loader";
+
+// import Button from '@mui/material/Button';
 
 function App() {
+  const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const getItem = async () => {
+      const result = await axios(urls.countryUrl);
+      // console.log(result.data.data);
+      setData(result.data.data);
+      setLoading(false);
+    };
+    getItem();
+  }, []);
+
   return (
+    <States>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <Button variant="contained">Hello World</Button> */}
+      <div className="container">
+        <img src={cold} alt="season" />
+        <div className="details">
+          <div className="detail-info">
+            <div className="title">
+              <h2>Weather Application</h2>
+            </div>
+            <div className="country">
+              { isLoading ? <Loader/> : <SearchCountry data={data}/>}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    </States>
   );
 }
 
