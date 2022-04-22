@@ -11,9 +11,12 @@ export default function SearchState() {
   const [stateData, setStateData] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [stateVal, setStateVal] = useState(rajy);
+  // const [isCountryLoading, setCountryLoading] = useState(false);
+  
   // console.log(rajy);
   useEffect(() => {
     if (country) {
+      // setCountryLoading(true);
     //   console.log("inside state:", country);
       setLoading(true);
       const getItem = async (country) => {
@@ -23,15 +26,18 @@ export default function SearchState() {
         const result = await axios.post(urls.stateUrl, sendData);
         // console.log(result.data.data.states);
         setStateData(result.data.data.states);
+        // setCountryLoading(false)
         setLoading(false);
       };
       getItem(country);
     }
   }, [country]);
-
+  
   useEffect(() => {
     if (stateVal) {
       //   console.log(stateVal);
+      
+      setStateVal(stateVal);
       updateState(stateVal);
     }
     // eslint-disable-next-line
@@ -41,12 +47,12 @@ export default function SearchState() {
   return (
     <div className="spinner">
       <Select
+        // value={isCountryLoading? null : rajy}
         placeholder="Select State"
         options={options}
         onChange={(opt) => {
           setStateVal(opt.value);
         }}
-        // isLoading={true}
         isLoading={isLoading ? true : null}
         noOptionsMessage={()=> "States not found!!!"}
       />

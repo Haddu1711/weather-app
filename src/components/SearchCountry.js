@@ -5,9 +5,9 @@ import GlobalInfo from "../services/context";
 
 export default function SearchCountry({ data }) {
 
-    const {country, updateCountry} = useContext(GlobalInfo)
+    const {country, updateCountry } = useContext(GlobalInfo)
     // console.log(country);
-  const [selCountry, setSelCountry] = useState(country);
+    const [selCountry, setSelCountry] = useState(country);
 
   useEffect(() => {
     if (selCountry) {
@@ -25,7 +25,6 @@ export default function SearchCountry({ data }) {
           options={options}
           onChange={(opt) => {
             setSelCountry(opt.value);
-            
           }}
           noOptionsMessage={()=> "Countries not found!!!"}
         />

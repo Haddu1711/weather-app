@@ -6,6 +6,7 @@ import { urls } from "./services/urls";
 import axios from "axios";
 import States from './services/states';
 import Loader from "./components/Loader";
+import ShowResult from "./components/ShowResult";
 
 // import Button from '@mui/material/Button';
 
@@ -23,6 +24,10 @@ function App() {
     getItem();
   }, []);
 
+  useEffect(()=>{
+
+  },[])
+
   return (
     <States>
     <div className="App">
@@ -31,12 +36,20 @@ function App() {
         <img src={cold} alt="season" />
         <div className="details">
           <div className="detail-info">
+            <div className="header">
+            <h1>MyWeatherApp</h1>
+            </div>
             <div className="title">
-              <h2>Weather Application</h2>
+              <h2>Select Location</h2>
             </div>
             <div className="country">
               { isLoading ? <Loader/> : <SearchCountry data={data}/>}
             </div>
+          </div>
+        </div>
+        <div className="show-results">
+          <div className="results">
+            <ShowResult/>
           </div>
         </div>
       </div>

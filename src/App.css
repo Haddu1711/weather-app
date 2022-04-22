@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  display: flex;
   /* background-color: rgb(31,44,50); */
 }
 
@@ -27,7 +28,7 @@
   align-items: center;
 }
 
-.details .detail-info{
+.details .detail-info {
   width: 75%;
   /* height: 75%; */
   margin: auto;
@@ -39,16 +40,208 @@
   /* align-items: center; */
 }
 
-.details .detail-info h2{
+.details .detail-info h2 {
   text-align: center;
   padding: 15px;
 }
 
-.detail-info .country{
+.detail-info .country {
   color: black;
 }
 
-.spinner{
+.spinner {
   margin: 20px auto;
   /* padding: 15px; */
+}
+
+.container .show-results {
+  color: white;
+  /* background-color: rgba(0, 0, 0, 0.33); */
+  position: absolute;
+  /* top: 0; */
+  margin-left: 50%;
+  width: 50%;
+  height: 100%;
+  /* padding: 15px; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+.container .show-results .full-info .header {
+  display: flex;
+  flex-direction: column;
+  /* width: 100%; */
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  /* background-color: aqua; */
+
+}
+
+.container .header h1 {
+  padding: 10px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 40px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+}
+
+.container .header h4 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0 !important;
+}
+
+.container .show-results .all-details {
+  padding: 15px;
+  /* background-color: aquamarine; */
+}
+
+.container .show-results .all-details .showing {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin: 10px auto; */
+  /* width: 85%; */
+  /* background-color: aqua; */
+
+}
+
+.container .show-results .showing h1,
+.container .show-results .showing h3 {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-weight: 400;
+}
+
+.container .show-results .location {
+  display: flex;
+  align-items: center;
+}
+
+.container .show-results .temprature {
+  /* padding: 10px; */
+  margin: 10px;
+}
+
+.container .show-results .temprature .temp-int {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-transform: capitalize;
+}
+
+.container .show-results .temprature .temp-int .temp-det {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin: 10px auto;
+  /* flex-direction: column; */
+}
+
+.container .show-results .temprature .temp-det h3 {
+  font-size: 40px;
+  margin: 0 !important;
+  font-weight: 500;
+}
+
+
+.container .show-results .temprature .temp-det h3 span {
+  /* font-size: 25px; */
+  margin: 0 !important;
+  font-weight: 300;
+
+}
+
+.container .show-results .temprature .temp-det h3 span sup {
+  font-size: 10px;
+  margin-top: -10px;
+}
+
+.container .show-results .temprature .temp-int .temp-img {
+  width: 60px;
+  height: 60px;
+  background-color: whitesmoke;
+  border-radius: 50%;
+  margin: auto 10px;
+  /* position: absolute; */
+  /* display: block; */
+  /* margin: 0 !important; */
+}
+
+.container .show-results .temprature .temp-int .temp-img img {
+  width: 100%;
+  /* width: 50px; */
+  height: inherit;
+  margin: auto;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  object-fit: cover;
+}
+
+.container .show-results .temprature .other-sec {
+  width: 100%;
+  display: flex;
+  margin: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container .show-results .temprature .other-sec .section-1 {
+  display: flex;
+  /* padding: 10px; */
+  /* align-items: center; */
+  /* flex-direction: row; */
+  width: 60%;
+  justify-content: space-between;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.container .show-results .temprature .other-sec .section-1 span {
+  text-transform: none;
+}
+
+.container .show-results .temprature .other-det h3,
+.container .show-results .temprature .other-sec h3 {
+  margin: 0 !important;
+  font-weight: 500;
+  font-size: 28px;
+}
+
+.container .show-results .temprature .other-sec h4 {
+  margin: 0 !important;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+/* .container .show-results .temprature .other-sec h3 span{
+  font-size: 20px;
+} */
+
+@media screen and (max-width:1050px) {
+  .container .show-results .showing h1 {
+    font-size: 30px;
+  }
+
+  .container .show-results .temprature .temp-int .temp-det {
+    margin: 5px auto;
+  }
+
+  .container .show-results .temprature .other-det h3,
+  .container .show-results .temprature .other-sec h3 {
+    margin: 0 !important;
+    font-weight: 500;
+    font-size: 25px;
+  }
+  
+  .container .show-results .temprature .other-sec .section-1{
+    width: 80%;
+  }
 }
