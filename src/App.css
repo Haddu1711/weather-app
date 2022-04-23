@@ -5,39 +5,56 @@
   padding: 0;
   box-sizing: border-box;
   display: flex;
-  /* background-color: rgb(31,44,50); */
 }
 
 .container img {
   width: 100%;
   height: 100vh;
   position: relative;
-  /* object-fit: fill; */
   filter: brightness(0.50);
   /* opacity: 0.85; */
 }
 
 .container .details {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.901) 20%, transparent);
   color: white;
-  background-color: rgba(0, 0, 0, 0.33);
+  /* background-color: rgba(0, 0, 0, 0.33); */
   position: absolute;
   top: 0;
   width: 50%;
   height: 100%;
   display: flex;
   align-items: center;
+  /* flex-direction: column; */
+}
+.container .details .backTop{
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  background-color: white;
+  padding: 10px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: black;
+  right: 3%;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto 0px;
+}
+.container .details .backTop i{
+  /* margin: auto; */
+  display: flex;
+  font-size: 18px;
+  transform: rotateZ(270deg);
+  margin-left: 0.5px;
 }
 
 .details .detail-info {
   width: 75%;
   /* height: 75%; */
   margin: auto;
-  /* display: flex; */
   padding: 5px;
-  /* flex-direction: column; */
-  /* justify-content: center; */
-  /* background-color: whitesmoke; */
-  /* align-items: center; */
 }
 
 .details .detail-info h2 {
@@ -56,27 +73,18 @@
 
 .container .show-results {
   color: white;
-  /* background-color: rgba(0, 0, 0, 0.33); */
   position: absolute;
-  /* top: 0; */
   margin-left: 50%;
   width: 50%;
   height: 100%;
-  /* padding: 15px; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
 }
 
 .container .show-results .full-info .header {
   display: flex;
   flex-direction: column;
-  /* width: 100%; */
   height: 100vh;
   align-items: center;
   justify-content: center;
-  /* background-color: aqua; */
-
 }
 
 .container .header h1 {
@@ -95,9 +103,11 @@
   margin: 0 !important;
 }
 
+.container .header i{
+  display: none;
+}
 .container .show-results .all-details {
   padding: 15px;
-  /* background-color: aquamarine; */
 }
 
 .container .show-results .all-details .showing {
@@ -105,10 +115,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* margin: 10px auto; */
-  /* width: 85%; */
-  /* background-color: aqua; */
-
 }
 
 .container .show-results .showing h1,
@@ -121,10 +127,10 @@
 .container .show-results .location {
   display: flex;
   align-items: center;
+  text-align: end;
 }
 
 .container .show-results .temprature {
-  /* padding: 10px; */
   margin: 10px;
 }
 
@@ -141,7 +147,6 @@
   width: 100%;
   justify-content: center;
   margin: 10px auto;
-  /* flex-direction: column; */
 }
 
 .container .show-results .temprature .temp-det h3 {
@@ -152,7 +157,6 @@
 
 
 .container .show-results .temprature .temp-det h3 span {
-  /* font-size: 25px; */
   margin: 0 !important;
   font-weight: 300;
 
@@ -169,19 +173,12 @@
   background-color: whitesmoke;
   border-radius: 50%;
   margin: auto 10px;
-  /* position: absolute; */
-  /* display: block; */
-  /* margin: 0 !important; */
 }
 
 .container .show-results .temprature .temp-int .temp-img img {
   width: 100%;
-  /* width: 50px; */
   height: inherit;
   margin: auto;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   object-fit: cover;
 }
 
@@ -195,9 +192,6 @@
 
 .container .show-results .temprature .other-sec .section-1 {
   display: flex;
-  /* padding: 10px; */
-  /* align-items: center; */
-  /* flex-direction: row; */
   width: 60%;
   justify-content: space-between;
   margin: 20px auto;
@@ -221,6 +215,8 @@
   font-size: 16px;
 }
 
+
+
 /* .container .show-results .temprature .other-sec h3 span{
   font-size: 20px;
 } */
@@ -229,7 +225,10 @@
   .container .show-results .showing h1 {
     font-size: 30px;
   }
-
+  .container .show-results .all-details {
+    padding: 0px;
+  }
+  
   .container .show-results .temprature .temp-int .temp-det {
     margin: 5px auto;
   }
@@ -243,5 +242,49 @@
   
   .container .show-results .temprature .other-sec .section-1{
     width: 80%;
+  }
+}
+
+@media screen and (max-width:800px){
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+  .container .details{
+    width: 100%;
+    align-items: none;
+    position: relative;
+    height: 500px;
+    background:  rgba(0, 0, 0, 0.33);
+  } 
+  .container .details .backTop{
+    display: block;
+  }
+  .container .show-results{
+    width: 100%;
+    margin-left: 0;
+    position: absolute;
+  }
+  .container .header i{
+    display: block;
+    /* align-items: flex-end; */
+    margin: 15px auto;
+    font-size: 22px;
+  }
+
+}
+
+@media screen and (max-width:430px){
+  .details .detail-info{
+    width: 90%;
+  }
+  .container .header h1{
+    font-size: 24px;
+  }
+  .container .header h4{
+    font-size: 16px;
+  }
+  .container .details .backTop{
+    right: 5%;
   }
 }

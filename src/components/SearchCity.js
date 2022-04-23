@@ -27,16 +27,16 @@ export default function SearchState() {
       };
       getItem(country, rajy);
     }
-  }, [country, rajy]);
+    // eslint-disable-next-line
+  }, [rajy]);
 
   useEffect(() => {
-    if (cityVal) {
-        console.log(cityVal);
+      if (cityVal) {
       updateCity(cityVal);
     }
     // eslint-disable-next-line
   }, [cityVal]);
-//   console.log(typeof(cityData));
+
   const options = cityData.map((ele) => ({ label: ele, value: ele }));
   return (
     <div className="spinner">

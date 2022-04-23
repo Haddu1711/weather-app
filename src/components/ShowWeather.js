@@ -5,12 +5,11 @@ import GlobalInfo from "../services/context";
 // import ShowTemp from './ShowTemp';
 
 function ShowWeather() {
-  const { city, country, latLon, temprature, updateTemprature } =
-    useContext(GlobalInfo);
+  const { city, country, latLon, weaMain, updateMain } = useContext(GlobalInfo);
   const [isLoading, setLoading] = useState(false);
-  const [tempr, setTemprature] = useState(temprature);
+  const [tempr, setTemprature] = useState(0);
   const [weaIcon, setWeaIcon] = useState("");
-  const [weaType, setWeaType] = useState("");
+  const [weaType, setWeaType] = useState(weaMain);
   const [weaTypeDesp, setWeaTypeDesp] = useState("");
   const [minTemp, setMinTemp] = useState("");
   const [maxTemp, setMaxTemp] = useState("");
@@ -29,7 +28,7 @@ function ShowWeather() {
       setLoading(true);
       const getItem = async (url) => {
         const result = await axios.get(url);
-        console.log(result.data);
+        // console.log(result.data);
         if (result.data.length !== 0) {
           // setWeaVal(result.data);
           setWeaIcon(result.data.weather[0].icon);
@@ -45,6 +44,7 @@ function ShowWeather() {
           setVisiblity(result.data.visibility);
           setHumidity(result.data.main.humidity);
           setLoading(false);
+          
         }
         // console.log(weaVal);
         // setLoading(false);
@@ -54,20 +54,20 @@ function ShowWeather() {
   }, [latLon.lat, latLon.lon]);
 
   useEffect(() => {
-    if (tempr) {
-      updateTemprature(tempr);
+    if (weaType) {
+      updateMain(weaType);
       // setTemprature(weaVal.main.temp)
     }
     // eslint-disable-next-line
-  }, [tempr]);
+  }, [weaType]);
 
   return (
     <div className="all-details">
       <div className="showing">
         <h1>Current Weather</h1>
         <div className="location">
-        <i class="fas fa-map-marker-alt"></i> &nbsp;
           <h3>
+        <i className="fas fa-map-marker-alt"></i>
             {" "}
             {city}, {country}
           </h3>
@@ -93,7 +93,7 @@ function ShowWeather() {
                     />
                     </div>
                     <h3>
-                        {(temprature - 273.15).toFixed(2)} <span> &#730;C </span>
+                        {(tempr - 273.15).toFixed(2)} <span> &#730;C </span>
                     </h3>
                 </div>
                 <div className="other-det">
@@ -104,12 +104,12 @@ function ShowWeather() {
                 <div className="other-sec">
                     <div className="section-1">
                         <div className="min-temp">
-                            <h4><i class="fal fa-temperature-low"></i> Min Temp</h4>
+                            <h4><i className="fal fa-temperature-low"></i> Min Temp</h4>
                             <h3>{(minTemp - 273.15).toFixed(2)} &#730;C</h3>
                         </div>
                         
                         <div className="max-temp">
-                            <h4><i class="fal fa-temperature-high"></i> Max Temp</h4>
+                            <h4><i className="fal fa-temperature-high"></i> Max Temp</h4>
                             <h3>{(maxTemp - 273.15).toFixed(2)} &#730;C</h3>
                         </div>
                     </div>
@@ -119,30 +119,30 @@ function ShowWeather() {
                             <h3>{(feelTemp - 273.15).toFixed(2)} &#730;C</h3>
                         </div>
                         <div className="pressure">
-                            <h4><i class="fas fa-wind"></i> Pressure</h4>
+                            <h4><i className="fas fa-wind"></i> Pressure</h4>
                             <h3>{pressure} <span> hPa</span></h3>
                         </div>
                         
                     </div>
                     <div className="section-1">
                         <div className="humidity">
-                            <h4><i class="fas fa-humidity"></i> Humidity</h4>
+                            <h4><i className="fas fa-humidity"></i> Humidity</h4>
                             <h3>{humidity} %</h3>
                         </div>
                         
                         <div className="visiblity">
-                            <h4><i class="fas fa-eye"></i> Visiblity</h4>
+                            <h4><i className="fas fa-eye"></i> Visiblity</h4>
                             <h3>{(visibility / 1000).toFixed(2)} <span> km</span></h3>
                         </div>
                     </div>
                     <div className="section-1">
                         
                         <div className="cloud">
-                            <h4><i class="fas fa-clouds"></i> Clouds</h4>
+                            <h4><i className="fas fa-clouds"></i> Clouds</h4>
                             <h3>{cloud} %</h3>
                         </div>
                         <div className="wind">
-                            <h4><i class="far fa-wind"></i> Wind</h4>
+                            <h4><i className="far fa-wind"></i> Wind</h4>
                             <h3>{(wind * 3.6).toFixed(1)} <span> km/h </span></h3>
                         </div>
                     </div>

@@ -6,7 +6,7 @@ const States = (props) =>{
     const [selectState, setState] = useState('');
     const [selectCity, setCity] = useState('');
     const [latLon, setLetLon] = useState({lat:null,lon:null});
-    const [temprature, setTemprature] = useState(0);
+    const [weaMain, setWeaMain] = useState("");
     
 
     const updateCity = (val) => {
@@ -23,13 +23,12 @@ const States = (props) =>{
         setLetLon({lat:val.lat, lon:val.lon})
     }
 
-    const updateTemprature = (val) => {
-        setTemprature(val);
+    const updateMain = (val) => {
+        setWeaMain(val);
     }
 
-
     return (
-        <GlobalInfo.Provider value={{country:selectCountry, rajy:selectState, city:selectCity, latLon, temprature, updateCity, updateCountry, updateState, updateLatLon, updateTemprature}}>
+        <GlobalInfo.Provider value={{country:selectCountry, rajy:selectState, city:selectCity, latLon, weaMain, updateCity, updateCountry, updateState, updateLatLon, updateMain}}>
             {props.children}
         </GlobalInfo.Provider>
     )

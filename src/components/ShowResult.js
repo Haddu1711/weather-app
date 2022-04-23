@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ShowWeather from "./ShowWeather";
 
 export default function ShowResult() {
-  const { country, city, latLon, updateLatLon } = useContext(GlobalInfo);
+  const { country, city, latLon, updateLatLon, updateMain } = useContext(GlobalInfo);
   const [isLoading, setLoading] = useState(false);
   const [isCountryLoading, setCountryLoading] = useState(false);
   const [latLonVal, setLatLonVal] = useState({ lat: latLon.lat, lon: latLon.lon });
@@ -14,7 +14,9 @@ export default function ShowResult() {
   useEffect(()=>{
     if(country){
       setCountryLoading(true);
+      updateMain("");
     }
+    // eslint-disable-next-line
   },[country]);
 
   useEffect(() => {
@@ -30,9 +32,7 @@ export default function ShowResult() {
       };
       getItem(getLatUrl);
     }
-    // else{
-    //   setLoading(true);
-    // }
+    // eslint-disable-next-line
   }, [city]);
 
   useEffect(()=>{
@@ -42,6 +42,9 @@ export default function ShowResult() {
       // eslint-disable-next-line
   },[latLonVal])
 
+  const goDown = () =>{
+    window.scrollTo(0, document.body.scrollHeight);
+  }
 
   return (
     <div className="full-info">
@@ -54,6 +57,7 @@ export default function ShowResult() {
             <h4>
               Select your location and get <b>Weather</b> details
             </h4>
+            <i className="fas fa-hand-point-down smooth" onClick={()=>{goDown()}}></i>
         </div>
       ): isLoading ? (
           <div className="header">
@@ -67,6 +71,7 @@ export default function ShowResult() {
             <h4>
               Select your location and get <b>Weather</b> details
             </h4>
+            <i className="fas fa-hand-point-down" onClick={()=>{goDown()}}></i>
         </div>
       )}
     </div>

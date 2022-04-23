@@ -36,8 +36,7 @@ export default function SearchState() {
   useEffect(() => {
     if (stateVal) {
       //   console.log(stateVal);
-      
-      setStateVal(stateVal);
+      // setStateVal(stateVal);
       updateState(stateVal);
     }
     // eslint-disable-next-line
@@ -53,6 +52,7 @@ export default function SearchState() {
         onChange={(opt) => {
           setStateVal(opt.value);
         }}
+        // value={stateVal}
         isLoading={isLoading ? true : null}
         noOptionsMessage={()=> "States not found!!!"}
       />
