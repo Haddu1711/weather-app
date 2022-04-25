@@ -12,7 +12,7 @@ export default function SearchCountry({ data }) {
   useEffect(() => {
     if (selCountry) {
     //   console.log(selCountry);
-      updateCountry(selCountry);
+      updateCountry(selCountry.value);
     }
     // eslint-disable-next-line
   }, [selCountry]);
@@ -24,8 +24,9 @@ export default function SearchCountry({ data }) {
           placeholder="Select Country"
           options={options}
           onChange={(opt) => {
-            setSelCountry(opt.value);
+            setSelCountry(opt);
           }}
+          value={selCountry}
           noOptionsMessage={()=> "Countries not found!!!"}
         />
         <SearchState country={selCountry} />

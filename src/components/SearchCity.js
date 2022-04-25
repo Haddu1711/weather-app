@@ -11,8 +11,13 @@ export default function SearchState() {
   const [isLoading, setLoading] = useState(false);
   const [cityVal, setCityVal] = useState(city);
 //   console.log("city",city);
+
+  useEffect(()=>{
+    setCityVal("");
+  },[country])
   useEffect(() => {
     if (country && rajy) {
+      setCityVal("")
     //   console.log("inside cty", country, rajy);
       setLoading(true);
       const getItem = async (country, rajy) => {
@@ -32,7 +37,7 @@ export default function SearchState() {
 
   useEffect(() => {
       if (cityVal) {
-      updateCity(cityVal);
+      updateCity(cityVal.value);
     }
     // eslint-disable-next-line
   }, [cityVal]);
@@ -43,8 +48,9 @@ export default function SearchState() {
       <Select
         placeholder="Select City"
         options={options}
+        value={cityVal}
         onChange={(opt) => {
-          setCityVal(opt.value);
+          setCityVal(opt);
         }}
         // isLoading={true}
         isLoading={isLoading ? true : null}
