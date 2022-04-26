@@ -15,6 +15,7 @@ export default function SearchState() {
   useEffect(()=>{
     setCityVal("");
   },[country])
+  
   useEffect(() => {
     if (country && rajy) {
       setCityVal("")

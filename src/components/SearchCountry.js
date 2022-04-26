@@ -29,7 +29,7 @@ export default function SearchCountry({ data }) {
           value={selCountry}
           noOptionsMessage={()=> "Countries not found!!!"}
         />
-        <SearchState country={selCountry} />
+        <SearchState />
       </div>
   );
 }
