@@ -1,56 +1,29 @@
 import CircularProgress from "@mui/material/CircularProgress";
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { fetchWeather } from "../services/apis";
 import GlobalInfo from "../services/context";
-// import ShowTemp from './ShowTemp';
 
 function ShowWeather() {
   const { city, country, latLon, weaMain, updateMain } = useContext(GlobalInfo);
+  const [result, setResult] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  const [tempr, setTemprature] = useState(0);
-  const [weaIcon, setWeaIcon] = useState("");
   const [weaType, setWeaType] = useState(weaMain);
-  const [weaTypeDesp, setWeaTypeDesp] = useState("");
-  const [minTemp, setMinTemp] = useState("");
-  const [maxTemp, setMaxTemp] = useState("");
-  const [feelTemp, setFeelTemp] = useState("");
-  const [cloud, setCloud] = useState("");
-  const [wind, setWind] = useState("");
-  const [pressure, setPressure] = useState("");
-  const [visibility, setVisiblity] = useState("");
-  const [humidity, setHumidity] = useState("");
-
-  // console.log("we",weaData.main.temp);
 
   useEffect(() => {
+    console.log("effect");
     if (latLon.lat && latLon.lon) {
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latLon.lat}&lon=${latLon.lon}&appid=a882a41db72d137793456a056cedef50`;
       setLoading(true);
-      const getItem = async (url) => {
-        const result = await axios.get(url);
-        // console.log(result.data);
-        if (result.data.length !== 0) {
-          // setWeaVal(result.data);
-          setWeaIcon(result.data.weather[0].icon);
-          setTemprature(result.data.main.temp);
-          setMaxTemp(result.data.main.temp_max);
-          setMinTemp(result.data.main.temp_min);
-          setFeelTemp(result.data.main.feels_like);
-          setWeaType(result.data.weather[0].main);
-          setWeaTypeDesp(result.data.weather[0].description);
-          setCloud(result.data.clouds.all);
-          setWind(result.data.wind.speed);
-          setPressure(result.data.main.pressure);
-          setVisiblity(result.data.visibility);
-          setHumidity(result.data.main.humidity);
+      ( async (lat, lon) => {
+        const res = await fetchWeather(lat, lon);
+        if(JSON.stringify(result)!== JSON.stringify(res)){
+          setResult(res);           
+          setWeaType(res.weather[0].main);
           setLoading(false);
-          
         }
-        // console.log(weaVal);
-        // setLoading(false);
-      };
-      getItem(weatherUrl);
+        
+      })(latLon.lat, latLon.lon);
     }
+    // eslint-disable-next-line
   }, [latLon.lat, latLon.lon]);
 
   useEffect(() => {
@@ -62,6 +35,7 @@ function ShowWeather() {
   }, [weaType]);
 
   return (
+    result === null ? <></> :
     <div className="all-details">
       <div className="showing">
         <h1>Current Weather</h1>
@@ -88,62 +62,62 @@ function ShowWeather() {
                 <div className="temp-det">
                     <div className="temp-img">
                     <img
-                        src={`http://openweathermap.org/img/wn/${weaIcon}.png`}
+                        src={`http://openweathermap.org/img/wn/${result?.weather[0].icon}.png`}
                         alt="mood"
                     />
                     </div>
                     <h3>
-                        {(tempr - 273.15).toFixed(2)} <span> &#730;C </span>
+                        {(result?.main.temp - 273.15).toFixed(2)} <span> &#730;C </span>
                     </h3>
                 </div>
                 <div className="other-det">
                     <h3>
-                        {weaType}, {weaTypeDesp}
+                        {weaType}, {result?.weather[0].description}
                     </h3>
                 </div>
                 <div className="other-sec">
                     <div className="section-1">
                         <div className="min-temp">
                             <h4><i className="fal fa-temperature-low"></i> Min Temp</h4>
-                            <h3>{(minTemp - 273.15).toFixed(2)} &#730;C</h3>
+                            <h3>{(result?.main.temp_min - 273.15).toFixed(2)} &#730;C</h3>
                         </div>
                         
                         <div className="max-temp">
                             <h4><i className="fal fa-temperature-high"></i> Max Temp</h4>
-                            <h3>{(maxTemp - 273.15).toFixed(2)} &#730;C</h3>
+                            <h3>{(result?.main.temp_max - 273.15).toFixed(2)} &#730;C</h3>
                         </div>
                     </div>
                     <div className="section-1">
                         <div className="feel-temp">
                             <h4>Feels Like</h4>
-                            <h3>{(feelTemp - 273.15).toFixed(2)} &#730;C</h3>
+                            <h3>{(result?.main.feels_like - 273.15).toFixed(2)} &#730;C</h3>
                         </div>
                         <div className="pressure">
                             <h4><i className="fas fa-wind"></i> Pressure</h4>
-                            <h3>{pressure} <span> hPa</span></h3>
+                            <h3>{result?.main.pressure} <span> hPa</span></h3>
                         </div>
                         
                     </div>
                     <div className="section-1">
                         <div className="humidity">
                             <h4><i className="fas fa-humidity"></i> Humidity</h4>
-                            <h3>{humidity} %</h3>
+                            <h3>{result?.main.humidity} %</h3>
                         </div>
                         
                         <div className="visiblity">
                             <h4><i className="fas fa-eye"></i> Visiblity</h4>
-                            <h3>{(visibility / 1000).toFixed(2)} <span> km</span></h3>
+                            <h3>{(result?.visibility / 1000).toFixed(2)} <span> km</span></h3>
                         </div>
                     </div>
                     <div className="section-1">
                         
                         <div className="cloud">
                             <h4><i className="fas fa-clouds"></i> Clouds</h4>
-                            <h3>{cloud} %</h3>
+                            <h3>{result?.clouds.all} %</h3>
                         </div>
                         <div className="wind">
                             <h4><i className="far fa-wind"></i> Wind</h4>
-                            <h3>{(wind * 3.6).toFixed(1)} <span> km/h </span></h3>
+                            <h3>{(result?.wind.speed * 3.6).toFixed(1)} <span> km/h </span></h3>
                         </div>
                     </div>
                 </div>

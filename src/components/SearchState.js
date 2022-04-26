@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { urls } from "../services/urls";
-import axios from "axios";
 import { useContext } from "react";
 import GlobalInfo from "../services/context";
-import SearchCity from "./SearchCity";
+import { fetchStates } from "../services/apis";
 
 export default function SearchState() {
   const { country, rajy, updateState, updateCity } = useContext(GlobalInfo);
@@ -18,15 +16,12 @@ export default function SearchState() {
     if (country) {
       setStateVal("");
       setLoading(true);
-      const getItem = async (country) => {
-        let sendData = {
-          country: `${country}`,
-        };
-        const result = await axios.post(urls.stateUrl, sendData);
-        setStateData(result.data.data.states);
+      (async (country) => {
+        const result = await fetchStates(country);
+        setStateData(result);
         setLoading(false);
-      };
-      getItem(country);
+      })(country);
+
     }
   }, [country]);
   
@@ -43,7 +38,6 @@ export default function SearchState() {
   return (
     <div className="spinner">
       <Select
-        // value={isCountryLoading? null : rajy}
         placeholder="Select State"
         options={options}
         value={stateVal}
@@ -53,7 +47,6 @@ export default function SearchState() {
         isLoading={isLoading ? true : null}
         noOptionsMessage={()=> "States not found!!!"}
       />
-      <SearchCity/>
     </div>
   );
 }

@@ -1,11 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import "./App.css";
 import SearchCountry from "./components/SearchCountry";
-import { urls } from "./services/urls";
-import axios from "axios";
+import { fetchCountry } from "./services/apis";
 import Loader from "./components/Loader";
 import ShowResult from "./components/ShowResult";
 import GlobalInfo from "./services/context";
+import SearchState from "./components/SearchState";
+import SearchCity from "./components/SearchCity";
+
+
 
 // images
 import default1 from "./pics/default1.jpg";
@@ -48,23 +51,21 @@ function App() {
 
   useEffect(() => {
     
-    const getItem = async () => {
-      const result = await axios(urls.countryUrl);
-      // console.log(result.data.data);
-      setData(result.data.data);
+    (async () => {
+      const result = await fetchCountry();
+      setData(result);
       setLoading(false);
-    };
-    getItem();
+    })();
+
   }, []);
+
 
   const goTop = () => {
     window.scrollTo(0, -document.body.scrollHeight);
   }
 
   return (
-    // <States>
     <div className="App">
-      {/* <Button variant="contained">Hello World</Button> */}
       <div className="container">
         <img src={pic_dict[weaMain]} alt="season" />
         <div className="details">
@@ -75,9 +76,15 @@ function App() {
             <div className="title">
               <h2>Select Location</h2>
             </div>
-            <div className="country">
-              { isLoading ? <Loader/> : <SearchCountry data={data}/>}
-            </div>
+              { isLoading ? <Loader/> :
+              ( 
+                <div className="country">
+                <SearchCountry data={data}/> 
+                <SearchState />
+                <SearchCity/>
+              </div>
+              )}
+              
           </div>
           <div className="backTop">
             <i className="fas fa-space-shuttle" onClick={()=>{goTop()}}></i>
@@ -90,7 +97,6 @@ function App() {
         </div>
       </div>
     </div>
-    // </States>
   );
 }
 

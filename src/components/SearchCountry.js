@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import Select from "react-select";
-import SearchState from "./SearchState";
 import GlobalInfo from "../services/context";
 
 export default function SearchCountry({ data }) {
@@ -29,7 +28,6 @@ export default function SearchCountry({ data }) {
           value={selCountry}
           noOptionsMessage={()=> "Countries not found!!!"}
         />
-        <SearchState />
       </div>
   );
 }

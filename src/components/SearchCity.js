@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { urls } from "../services/urls";
-import axios from "axios";
 import { useContext } from "react";
 import GlobalInfo from "../services/context";
+import { fetchCity } from "../services/apis";
 
-export default function SearchState() {
+export default function SearchCity() {
   const { country, rajy, city, updateCity } = useContext(GlobalInfo);
   const [cityData, setCityData] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [cityVal, setCityVal] = useState(city);
-//   console.log("city",city);
 
   useEffect(()=>{
     setCityVal("");
@@ -19,19 +17,12 @@ export default function SearchState() {
   useEffect(() => {
     if (country && rajy) {
       setCityVal("")
-    //   console.log("inside cty", country, rajy);
       setLoading(true);
-      const getItem = async (country, rajy) => {
-        let sendData = {
-          country: `${country}`,
-          state: `${rajy}`,
-        };
-        const result = await axios.post(urls.cityUrl, sendData);
-        // console.log(result.data.data);
-        setCityData(result.data.data);
+      (async (country, rajy) => {
+        const result = await fetchCity(country,rajy);
+        setCityData(result);
         setLoading(false);
-      };
-      getItem(country, rajy);
+      })(country, rajy);
     }
     // eslint-disable-next-line
   }, [rajy]);
