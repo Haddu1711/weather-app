@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ShowWeather from "./ShowWeather";
 
 export default function ShowResult() {
-  const { country, rajy, city, latLon, updateLatLon, updateMain } = useContext(GlobalInfo);
+  const { country,rajy, city, latLon, updateLatLon, updateMain } = useContext(GlobalInfo);
   const [isLoading, setLoading] = useState(false);
   const [isCountryLoading, setCountryLoading] = useState(false);
   const [latLonVal, setLatLonVal] = useState({ lat: latLon.lat, lon: latLon.lon });
@@ -17,7 +17,7 @@ export default function ShowResult() {
       updateMain("");
     }
     // eslint-disable-next-line
-  },[country, rajy]);
+  },[country,rajy]);
 
   useEffect(() => {
     if(city) {

@@ -24,50 +24,28 @@ import tornado from "./pics/Tornado.jpg";
 
 function App() {
   const { weaMain } = useContext(GlobalInfo);
-  let pic;
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   
-  // set pics
-  // if(weaMain === ''){
-  //   pic = default1;
-  // }
-  if (weaMain === "Clear"){
-    pic = clear;
+  const pic_dict = {
+    "Clear" : clear,
+    "Clouds": cloud,
+    "Drizzle": drizzle,
+    "Dust": dust,
+    "Ash": dust,
+    "Fog": fog,
+    "Mist": fog,
+    "Smoke": fog,
+    "Haze": fog,
+    "Rain": rainy,
+    "Sand": sand,
+    "Snow": snow,
+    "Squall": squall,
+    "Thunderstorm": thunder,
+    "Tornado": tornado,
+    "":default1
   }
-  else if (weaMain === "Clouds"){
-    pic = cloud;
-  }
-  else if (weaMain === "Drizzle"){
-    pic = drizzle;
-  }
-  else if (weaMain === "Dust" || weaMain === "Ash"){
-    pic = dust;
-  }
-  else if (weaMain === "Fog" || weaMain === "Mist" || weaMain === "Smoke" || weaMain === "Haze" ){
-    pic = fog;
-  }
-  else if (weaMain === "Rain"){
-    pic = rainy;
-  }
-  else if (weaMain === "Sand"){
-    pic = sand;
-  }
-  else if (weaMain === "Snow"){
-    pic = snow;
-  }
-  else if (weaMain === "Squall"){
-    pic = squall;
-  }
-  else if (weaMain === "Thunderstorm"){
-    pic = thunder;
-  }
-  else if (weaMain === "Tornado"){
-    pic = tornado;
-  }
-  else{
-    pic = default1;
-  }
+
   useEffect(() => {
     
     const getItem = async () => {
@@ -88,7 +66,7 @@ function App() {
     <div className="App">
       {/* <Button variant="contained">Hello World</Button> */}
       <div className="container">
-        <img src={pic} alt="season" />
+        <img src={pic_dict[weaMain]} alt="season" />
         <div className="details">
           <div className="detail-info">
             <div className="header">
