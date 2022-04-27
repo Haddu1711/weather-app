@@ -1,12 +1,14 @@
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
+// import { useState, useEffect, useContext } from "react";
 import "./App.css";
-import SearchCountry from "./components/SearchCountry";
-import { fetchCountry } from "./services/apis";
-import Loader from "./components/Loader";
+import Address from "./components/Address";
+// import SearchCountry from "./components/SearchCountry";
+// import { fetchCountry } from "./services/apis";
+// import Loader from "./components/Loader";
 import ShowResult from "./components/ShowResult";
-import GlobalInfo from "./services/context";
-import SearchState from "./components/SearchState";
-import SearchCity from "./components/SearchCity";
+// import GlobalInfo from "./services/context";
+// import SearchState from "./components/SearchState";
+// import SearchCity from "./components/SearchCity";
 
 
 
@@ -26,9 +28,11 @@ import tornado from "./pics/Tornado.jpg";
 
 
 function App() {
-  const { weaMain } = useContext(GlobalInfo);
-  const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  // const { weaMain } = useContext(GlobalInfo);
+  const [weaMain, setWeaMain] = useState("");
+  const [city, setCity] = useState("");
+  // const [data, setData] = useState([]);
+  const [isCountryLoading, setCountryLoading] = useState(false);
   
   const pic_dict = {
     "Clear" : clear,
@@ -49,15 +53,15 @@ function App() {
     "":default1
   }
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    (async () => {
-      const result = await fetchCountry();
-      setData(result);
-      setLoading(false);
-    })();
+  //   (async () => {
+  //     const result = await fetchCountry();
+  //     setData(result);
+  //     setLoading(false);
+  //   })();
 
-  }, []);
+  // }, []);
 
 
   const goTop = () => {
@@ -76,14 +80,10 @@ function App() {
             <div className="title">
               <h2>Select Location</h2>
             </div>
-              { isLoading ? <Loader/> :
-              ( 
-                <div className="country">
-                <SearchCountry data={data}/> 
-                <SearchState />
-                <SearchCity/>
-              </div>
-              )}
+            <div className="country">
+
+              <Address city={city} setCity={setCity} setWeaMain={setWeaMain} setCountryLoading={setCountryLoading}/>
+            </div>
               
           </div>
           <div className="backTop">
@@ -92,7 +92,7 @@ function App() {
         </div>
         <div className="show-results">
           <div className="results">
-            <ShowResult/>
+            <ShowResult weaMain={weaMain} setWeaMain={setWeaMain} city={city} isCountryLoading={isCountryLoading} setCountryLoading={setCountryLoading}/>
           </div>
         </div>
       </div>

@@ -1,28 +1,19 @@
-import { useContext, useEffect, useState } from "react";
-import GlobalInfo from "../services/context";
+import { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import ShowWeather from "./ShowWeather";
 import { fetchLatLon } from "../services/apis";
+import Front from "./Front";
 
-export default function ShowResult() {
-  const { country,rajy, city, latLon, updateLatLon, updateMain } = useContext(GlobalInfo);
+export default function ShowResult({weaMain, setWeaMain, city,setCountryLoading,isCountryLoading}) {
+  console.log(isCountryLoading)
   const [isLoading, setLoading] = useState(false);
-  const [isCountryLoading, setCountryLoading] = useState(false);
-  const [latLonVal, setLatLonVal] = useState({ lat: latLon.lat, lon: latLon.lon });
-
-  useEffect(()=>{
-    if(country){
-      setCountryLoading(true);
-      updateMain("");
-    }
-    // eslint-disable-next-line
-  },[country,rajy]);
+  const [latLonVal, setLatLonVal] = useState({ lat: null, lon: null });
 
   useEffect(() => {
-    if(city) {
+    if(city.value) {
       setLoading(true);
       (async (city) => {
-        const result = await fetchLatLon(city);
+        const result = await fetchLatLon(city.value);
         setLatLonVal({ lat: result.lat, lon: result.lon });
         setLoading(false);
         setCountryLoading(false);
@@ -30,43 +21,20 @@ export default function ShowResult() {
       
     }
     // eslint-disable-next-line
-  }, [city]);
+  }, [city.value]);
 
-  useEffect(()=>{
-      if(latLonVal){
-          updateLatLon(latLonVal);
-      };
-      // eslint-disable-next-line
-  },[latLonVal])
-
-  const goDown = () =>{
-    window.scrollTo(0, document.body.scrollHeight);
-  }
-
+  console.log(isLoading)
   return (
     <div className="full-info">
       {isCountryLoading ?(
-        <div className="header">
-          <h1> Welcome To MyWeatherApp </h1>
-            <h4>
-              Select your location and get <b>Weather</b> details
-            </h4>
-            <i className="fas fa-hand-point-down smooth" onClick={()=>{goDown()}}></i>
-        </div>
+        <Front />
       ): isLoading ? (
           <div className="header">
             <CircularProgress color="inherit" />
           </div>
-      ) : latLon.lat ? (
-        <ShowWeather/>
-      ) : (
-        <div className="header">
-          <h1> Welcome To MyWeatherApp </h1>
-            <h4>
-              Select your location and get <b>Weather</b> details
-            </h4>
-            <i className="fas fa-hand-point-down" onClick={()=>{goDown()}}></i>
-        </div>
+      ) : latLonVal.lat ? (
+        <ShowWeather weaType={weaMain} setWeaType={setWeaMain} city={city} latLon={latLonVal}/>
+      ) : (<Front/>
       )}
     </div>
   );

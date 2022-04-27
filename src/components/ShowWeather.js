@@ -1,13 +1,13 @@
 import CircularProgress from "@mui/material/CircularProgress";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchWeather } from "../services/apis";
-import GlobalInfo from "../services/context";
+// import GlobalInfo from "../services/context";
 
-function ShowWeather() {
-  const { city, country, latLon, weaMain, updateMain } = useContext(GlobalInfo);
+function ShowWeather({weaType,setWeaType,city,latLon}) {
+  // const { city, country, latLon, weaMain, updateMain } = useContext(GlobalInfo);
   const [result, setResult] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  const [weaType, setWeaType] = useState(weaMain);
+  // const [weaType, setWeaType] = useState(weaMain);
 
   useEffect(() => {
     console.log("effect");
@@ -26,13 +26,13 @@ function ShowWeather() {
     // eslint-disable-next-line
   }, [latLon.lat, latLon.lon]);
 
-  useEffect(() => {
-    if (weaType) {
-      updateMain(weaType);
-      // setTemprature(weaVal.main.temp)
-    }
-    // eslint-disable-next-line
-  }, [weaType]);
+  // useEffect(() => {
+  //   if (weaType) {
+  //     updateMain(weaType);
+  //     // setTemprature(weaVal.main.temp)
+  //   }
+  //   // eslint-disable-next-line
+  // }, [weaType]);
 
   return (
     result === null ? <></> :
@@ -43,19 +43,16 @@ function ShowWeather() {
           <h3>
         <i className="fas fa-map-marker-alt"></i>
             {" "}
-            {city}, {country}
+            {city.value}
+            {/* {city}, {country} */}
           </h3>
         </div>
       </div>
       <div className="temprature">
-        {/* <ShowTemp /> */}
         <div className="tempr">
-          {/* <div className="mode-img">
-                </div> */}
           {isLoading ? (
             <center>
-              {" "}
-              <CircularProgress />{" "}
+              <CircularProgress />
             </center>
           ) : (
             <div className="temp-int">
